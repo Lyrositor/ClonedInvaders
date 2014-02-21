@@ -6,21 +6,25 @@
  *
  */
 
+import org.jsfml.system.*;
+
 class Player extends Entity {
     
-    public static double SPEED = 5.0;
+    public static double SPEED = 250.0;
     private static String SPRITE_FILE = "res/player.png";
 
     private String fName;
     
-    public Player(String name)
+    public Player(String name, Vector2f position)
     {
         super(SPRITE_FILE);
         fName = name;
         fHealth = 500.0;
+        setPosition(position);
     }
 
-    public void movePlayer(float deltaX)
+    public void movePlayer(double deltaX)
     {
+        setPosition((float) (getPosition().x + deltaX), (float) getPosition().y);
     }
 }

@@ -37,8 +37,10 @@ public class Main {
         while (window.isOpen()) {
             // Process new events.
             for (Event event : window.pollEvents()) {
-                if(event.type == Event.Type.CLOSED) {
+                if (event.type == Event.Type.CLOSED) {
                     window.close();
+                } else {
+                    screen.processEvent(event);
                 }
             }
             

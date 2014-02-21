@@ -20,7 +20,11 @@ class Screen {
     public Screen(RenderWindow window)
     {
         fWindow = window;
-        fPlayer = new Player("Player 1");
+        Vector2i size = window.getSize();
+        Vector2f playerPosition = new Vector2f(
+            (float) (size.x/2 - 13),
+            (float) (size.y - 80));
+        fPlayer = new Player("Player 1", playerPosition);
     }
     
     public void processEvent(Event event)
@@ -29,6 +33,11 @@ class Screen {
     
     public void update(Time delta)
     {
+        // Move the player.
+        if (Keyboard.isKeyPressed(Keyboard.Key.LEFT))
+            fPlayer.movePlayer(-delta.asSeconds() * fPlayer.SPEED);
+        else if (Keyboard.isKeyPressed(Keyboard.Key.RIGHT))
+            fPlayer.movePlayer(delta.asSeconds() * fPlayer.SPEED);
         fWindow.draw(fPlayer);
     }
     
