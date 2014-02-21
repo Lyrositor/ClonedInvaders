@@ -2,6 +2,7 @@
 
     <property name="src.dir"     value="src"/>
     <property name="lib.dir"     value="lib"/>
+    <property name="res.dir"     value="res"/>
 
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
@@ -28,10 +29,13 @@
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <fileset dir="${classes.dir}" includes="**/*.class" />
-            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+            <fileset dir="${classes.dir}" includes="**/*.class"/>
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar"/>
+            <zipfileset dir="${res.dir}" prefix="res"/>
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Implementation-Title" value="Cloned Invaders"/>
+                <attribute name="Implementation-Version" value="1.0"/>
             </manifest>
         </jar>
     </target>

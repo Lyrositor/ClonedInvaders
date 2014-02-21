@@ -14,10 +14,13 @@ import org.jsfml.window.event.*;
 class Screen {
     
     private RenderWindow fWindow;
+
+    private Player fPlayer;
     
     public Screen(RenderWindow window)
     {
         fWindow = window;
+        fPlayer = new Player("Player 1");
     }
     
     public void processEvent(Event event)
@@ -26,6 +29,7 @@ class Screen {
     
     public void update(Time delta)
     {
+        fWindow.draw(fPlayer);
     }
     
 }

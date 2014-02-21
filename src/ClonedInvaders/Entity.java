@@ -6,10 +6,28 @@
  *
  */
 
+import java.io.*;
+import java.nio.file.*;
 import org.jsfml.graphics.*;
 
 class Entity extends Sprite {
 
-    private int fHealth;
+    protected double fHealth;
+
+    public Entity(String textureFilename)
+    {
+        super();
+        try {
+            Image textureImage = new Image();
+            textureImage.loadFromFile(Paths.get(textureFilename));
+            Texture texture = new Texture();
+            texture.loadFromImage(textureImage);
+            setTexture(texture);
+        } catch (IOException|TextureCreationException ex) {
+            System.err.println("Failed to create player texture:");
+            ex.printStackTrace();
+        }
+        fHealth = 100.0;
+    }
 
 }
