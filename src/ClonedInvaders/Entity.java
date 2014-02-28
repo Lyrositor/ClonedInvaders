@@ -14,9 +14,12 @@ class Entity extends Sprite {
 
     protected double fHealth;
 
-    public Entity(String textureFilename)
+    protected Screen fScreen;
+
+    public Entity(Screen screen, String textureFilename)
     {
         super();
+        fScreen = screen;
         try {
             Image textureImage = new Image();
             textureImage.loadFromFile(Paths.get(textureFilename));
