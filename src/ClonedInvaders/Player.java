@@ -8,6 +8,7 @@
 
 import org.jsfml.graphics.*;
 import org.jsfml.system.*;
+import org.jsfml.window.*;
 
 class Player extends Entity {
     
@@ -24,6 +25,15 @@ class Player extends Entity {
         setPosition(position);
     }
 
+    public void update(Time delta)
+    {
+        // Move the player.
+        if (Keyboard.isKeyPressed(Keyboard.Key.LEFT))
+            movePlayer(-delta.asSeconds() * SPEED);
+        else if (Keyboard.isKeyPressed(Keyboard.Key.RIGHT))
+            movePlayer(delta.asSeconds() * SPEED);
+    }
+
     public void movePlayer(double deltaX)
     {
         float newX = getPosition().x + (float) deltaX;
@@ -31,5 +41,11 @@ class Player extends Entity {
         FloatRect bounds = getGlobalBounds();
         if (newX + bounds.width <= size.x && newX >= 0)
             setPosition(newX, (float) getPosition().y);
+    }
+
+    public void shoot()
+    {
+        PlayerShot shot = new PlayerShot(fScreen, this);
+        fScreen.addEntity(shot);
     }
 }

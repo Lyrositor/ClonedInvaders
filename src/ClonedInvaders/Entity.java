@@ -9,9 +9,11 @@
 import java.io.*;
 import java.nio.file.*;
 import org.jsfml.graphics.*;
+import org.jsfml.system.*;
 
 class Entity extends Sprite {
 
+    protected boolean fDeleted;
     protected double fHealth;
 
     protected Screen fScreen;
@@ -19,6 +21,7 @@ class Entity extends Sprite {
     public Entity(Screen screen, String textureFilename)
     {
         super();
+        fDeleted = false;
         fScreen = screen;
         try {
             Image textureImage = new Image();
@@ -31,6 +34,15 @@ class Entity extends Sprite {
             ex.printStackTrace();
         }
         fHealth = 100.0;
+    }
+
+    public boolean isDeleted()
+    {
+        return fDeleted;
+    }
+
+    public void update(Time delta)
+    {
     }
 
 }
