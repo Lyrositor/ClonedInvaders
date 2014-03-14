@@ -1,5 +1,7 @@
 <project name="Cloned Invaders" basedir="." default="main">
 
+    <property file="build.properties"/>
+
     <property name="src.dir"     value="src"/>
     <property name="lib.dir"     value="lib"/>
     <property name="res.dir"     value="res"/>
@@ -18,12 +20,22 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" debug="${compile.debug}" includeantruntime="false">
             <classpath>
                 <pathelement path="${lib.dir}/jsfml.jar"/>
             </classpath>
             <compilerarg value="-Xlint:unchecked"/>
         </javac>
+    </target>
+
+    <target name="debug" depends="compile">
+        <java classpath="${classes.dir}" classname="Main" fork="true">
+            <classpath>
+                <pathelement path="${lib.dir}/jsfml.jar"/>
+            </classpath>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044" />
+        </java>
     </target>
 
     <target name="jar" depends="compile">
@@ -42,8 +54,6 @@
 
     <target name="run" depends="jar">
         <java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
-            <arg value="5"/>
-            <arg path="output"/>
         </java>
     </target>
 

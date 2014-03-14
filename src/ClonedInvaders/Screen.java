@@ -19,6 +19,7 @@ class Screen {
 
     private ArrayList<Entity> fEntities;
     private Player fPlayer;
+    private boolean isShooting;
     
     public Screen(RenderWindow window)
     {
@@ -30,6 +31,7 @@ class Screen {
             (float) (size.y - 80));
         fPlayer = new Player(this, "Player 1", playerPosition);
         addEntity(fPlayer);
+        isShooting = false;
     }
 
     public void addEntity(Entity entity)
@@ -39,14 +41,28 @@ class Screen {
 
     public void processEvent(Event event)
     {
+        KeyEvent keyEvent;
         switch (event.type)
         {
             case KEY_PRESSED:
-                KeyEvent keyEvent = event.asKeyEvent();
+                keyEvent = event.asKeyEvent();
 
                 // Send any shots which were fired.
                 if (keyEvent.key == Keyboard.Key.SPACE)
-                    fPlayer.shoot();
+                {
+                    if (!isShooting)
+                    {
+                        isShooting = true;
+                        fPlayer.shoot();
+                    }
+                }
+                break;
+            case KEY_RELEASED:
+                keyEvent = event.asKeyEvent();
+
+                if (keyEvent.key == Keyboard.Key.SPACE)
+                    if (isShooting)
+                        isShooting = false;
                 break;
         }
     }

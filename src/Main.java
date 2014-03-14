@@ -25,7 +25,11 @@ public class Main {
         
         // Prepare the main window.
         RenderWindow window = new RenderWindow();
-        window.create(new VideoMode(800, 600), TITLE);
+        window.create(
+            new VideoMode(800, 600),
+            TITLE,
+            WindowStyle.NONE | WindowStyle.CLOSE | WindowStyle.TITLEBAR);
+        window.setVerticalSyncEnabled(true);
 
         // Create our only screen (the game screen) and a clock to keep
         // track of the time which has passed between two update cycles.
